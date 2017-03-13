@@ -131,12 +131,20 @@ class SessionHolder {
         String loadBalancingPolicy = properties.getProperty(TAG_LOADBALANCING_POLICY, "");
         String retryPolicy = properties.getProperty(TAG_RETRY_POLICY, "");
         String reconnectPolicy = properties.getProperty(TAG_RECONNECT_POLICY, "");
+        String connectTimeout = properties.getProperty(TAG_CONNECT_TIMEOUT, Integer.toString(SocketOptions.DEFAULT_CONNECT_TIMEOUT_MILLIS));
+        String readTimeout = properties.getProperty(TAG_READ_TIMEOUT, Integer.toString(SocketOptions.DEFAULT_READ_TIMEOUT_MILLIS));
+        String tcpNoDelay = properties.getProperty(TAG_TCP_NO_DELAY, Boolean.TRUE.toString());
         boolean debugMode = properties.getProperty(TAG_DEBUG, "").equals("true");
 
 
         Cluster.Builder builder = Cluster.builder();
         builder.addContactPoints(hosts.split("--")).withPort(port);
-        builder.withSocketOptions(new SocketOptions().setKeepAlive(true));
+        final SocketOptions socketOptions = new SocketOptions();
+        socketOptions.setKeepAlive(true);
+        socketOptions.setConnectTimeoutMillis(Integer.parseInt(connectTimeout));
+        socketOptions.setReadTimeoutMillis(Integer.parseInt(readTimeout));
+        socketOptions.setTcpNoDelay(Boolean.parseBoolean(tcpNoDelay));
+        builder.withSocketOptions(socketOptions);
         // Set credentials when applicable
         if (username.length() > 0) {
             builder.withCredentials(username, password);

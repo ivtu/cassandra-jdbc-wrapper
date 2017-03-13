@@ -72,6 +72,9 @@ public class Utils
     public static final String KEY_RETRY_POLICY = "retry";
     public static final String KEY_RECONNECT_POLICY = "reconnection";
     public static final String KEY_DEBUG = "debug";
+    public static final String KEY_CONNECT_TIMEOUT = "connecttimeout";
+    public static final String KEY_READ_TIMEOUT = "readtimeout";
+    public static final String KEY_TCP_NO_DELAY = "tcpnodelay";
     //public static final String KEY_PRIMARY_DC = "primarydc";
     
     public static final String TAG_DESCRIPTION = "description";
@@ -89,6 +92,9 @@ public class Utils
     public static final String TAG_RETRY_POLICY = "retry";
     public static final String TAG_RECONNECT_POLICY = "reconnection";
     public static final String TAG_DEBUG = "debug";
+    public static final String TAG_CONNECT_TIMEOUT = "connectTimeoutMillis";
+    public static final String TAG_READ_TIMEOUT = "readTimeoutMillis";
+    public static final String TAG_TCP_NO_DELAY = "tcpNoDelay";
     
     public static final String TAG_PRIMARY_DC = "primaryDatacenter";
     public static final String TAG_BACKUP_DC = "backupDatacenter";
@@ -217,6 +223,15 @@ public class Utils
                 }
                 if (params.containsKey(KEY_RECONNECT_POLICY)){
                 	props.setProperty(TAG_RECONNECT_POLICY, params.get(KEY_RECONNECT_POLICY));
+                }
+                if (params.containsKey(KEY_CONNECT_TIMEOUT)){
+                	props.setProperty(TAG_CONNECT_TIMEOUT, params.get(KEY_CONNECT_TIMEOUT));
+                }
+                if (params.containsKey(KEY_READ_TIMEOUT)){
+                	props.setProperty(TAG_READ_TIMEOUT, params.get(KEY_READ_TIMEOUT));
+                }
+                if (params.containsKey(KEY_TCP_NO_DELAY)){
+                	props.setProperty(TAG_TCP_NO_DELAY, params.get(KEY_TCP_NO_DELAY));
                 }
                 
 
